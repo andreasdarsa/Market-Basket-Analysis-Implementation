@@ -1,0 +1,17 @@
+.card-blue {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    color: #006064;
+}
+
+.card-green {
+    background-color: #e8f5e9;
+    border: 1px solid #c8e6c9;
+    color: #1b5e20;
+}
+
+.card-yellow {
+    background-color: #fffde7;
+    border: 1px solid #fff9c4;
+    color: #f5df17;
+}
