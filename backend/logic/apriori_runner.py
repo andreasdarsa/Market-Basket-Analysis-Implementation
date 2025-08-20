@@ -1,18 +1,18 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules, fpgrowth
 from mlxtend.preprocessing import TransactionEncoder
-from preprocessing import get_items, create_dataset
+from preprocessing import get_items, create_random_dataset
 import os
 
 FILE_PATH = "backend/data/generated_transactions.csv"
 
 
-def get_items_list() -> list:
-    if os.path.exists(FILE_PATH):
-        with open(FILE_PATH, "r", encoding="utf-8") as f:
+def get_items_list(fpath=FILE_PATH) -> list:
+    if os.path.exists(path=fpath):
+        with open(fpath, "r", encoding="utf-8") as f:
             items_list = [line.strip().split(",") for line in f]
     else:
-        items_list = create_dataset()
+        items_list = create_random_dataset()
 
     return items_list
 

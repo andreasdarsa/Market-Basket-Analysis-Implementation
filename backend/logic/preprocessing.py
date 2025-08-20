@@ -1,5 +1,6 @@
 import pandas as pd
 import random
+from collections import Counter
 
 GROCERIES_PATH = "backend/data/Groceries_dataset.csv"
 GENERATED_PATH = "backend/data/generated_transactions.csv"
@@ -12,7 +13,7 @@ def get_items():
     return items_list
 
 # This function creates a generic dataset of basket items
-def create_dataset():
+def create_random_dataset():
     # what items are going to be included
     items = [
         'bread', 'milk', 'cheese', 'butter', 'eggs', 'apples', 'bananas', 'oranges',
@@ -50,3 +51,43 @@ def create_dataset():
     print("✅ Baskets written to csv file.")
 
     return transactions
+
+def clean_csv(path, min_support=0.005, min_items_per_transaction=2):
+    df = pd.read_csv(path)
+
+    # Check if the CSV file has the correct columns
+    if list(df.columns) != ["TransactionID", "Items"]:
+        raise ValueError("CSV file must have two columns named 'TransactionID' and 'Items'.")
+    
+    # Replace '/' with ',' in the 'Items' column in order to split items correctly
+    df['Items'] = df['Items'].str.replace('/', ',', regex=False)
+
+    # Split the 'Items' column in list of items
+    df['Items'] = df['Items'].apply(lambda x: x.split(','))
+
+    # Remove transactions with less than minimum items
+    df = df[df['Items']].apply(lambda x: len(x) >= min_items_per_transaction)
+
+    # Calculate support
+    all_items = [item for sublist in df['Items'] for item in sublist]
+    item_counts = Counter(all_items)
+    total_transactions = len(df)
+    support = {item: count / total_transactions for item, count in item_counts.items() if count / total_transactions >= min_support}
+
+    # Remove items that do not meet the minimum support
+    df['Items'] = df['Items'].apply(lambda items: [item for item in items if item in support])
+
+    # Remove empty/small transactions
+    df = df[df['Items'].apply(lambda x: len(x) >= min_items_per_transaction)]
+
+    # Calculate cleaning statistics
+    stats = {
+        "total_transactions": total_transactions,
+        "removed_transactions": total_transactions - len(df),
+        "total_items": len(all_items),
+        "removed_items": sum(item_counts[item] for item in item_counts if item_counts[item] / total_transactions < min_support),
+        "support": support,
+        "frequent_items": len(support)
+    }
+
+    return df, stats
