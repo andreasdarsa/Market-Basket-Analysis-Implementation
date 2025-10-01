@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Market Basket Analyzer - Visualizations</title>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="styles.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <div class="container-fluid">
+                <a class="navbar-brand" href="home.html">MBA App</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item" id="toHome">
+                            <a class="nav-link" href="home.html">Home</a>
+                        </li>
+                        <li class="nav-item" id="upload-link">
+                            <a class="nav-link" href="upload.html">Upload CSV</a>
+                        </li>
+                        <li class="nav-item" id="toPreprocess">
+                            <a class="nav-link" href="preprocess.html">Preprocess file</a>
+                        </li>
+                        <li class="nav-item" id="toAnalysis">
+                            <a class="nav-link" href="analysis.html">Analysis</a>
+                        </li>
+                        <li class="nav-item" id="toVisuals">
+                            <a class="nav-link active fw-bold text-primary" aria-current="page" href="visuals.html">Visuals</a>
+                        </li>
+                        <li class="nav-item" id="toAbout">
+                            <a class="nav-link" href="/about">About</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container my-4">
+            <h1 class="mb-3">Visualizations</h1>
+            <p class="lead">Explore your market basket data with interactive charts and graphs.</p>
+        </div>
+        <div class="container my-4" id="graphs-section">
+            <h2 class="mb-3">Graphs</h2>
+            <div id="graphs-container">
+            <div id="graph-frequent-items" class="mb-4">
+                <!-- Frequent Items Bar Chart will be dynamically inserted here -->
+                <!-- x: itemsets y: frequencies-->
+            </div>
+            <div id="graph-association-rules" class="mb-4">
+                <!-- Association Rules Graph will be dynamically inserted here -->
+            </div>
+            <div id="graph-network" class="mb-4">
+                <!-- Network Graph will be dynamically inserted here -->
+            </div>
+            <!-- Add more graph slots as needed -->
+            </div>
+        </div>
+        
+    </body>
+</html>

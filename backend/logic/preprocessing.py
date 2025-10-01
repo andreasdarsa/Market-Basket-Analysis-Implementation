@@ -87,7 +87,8 @@ def clean_csv(path, min_support=0.005, min_items_per_transaction=2):
         "total_items": len(all_items),
         "removed_items": sum(item_counts[item] for item in item_counts if item_counts[item] / total_transactions < min_support),
         "support": support,
-        "frequent_items": len(support)
+        "frequent_items": len(support),
+        "avg_items_per_transaction": df['Items'].apply(len).mean()
     }
 
     return df, stats
