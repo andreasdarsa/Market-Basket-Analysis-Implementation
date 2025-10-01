@@ -38,6 +38,7 @@
    cd backend
    py app.py
 2. Άνοιξε το frontend
+
 -Απλά ανοίγεις το αρχείο **frontend/static/home.html** σε οποιονδήποτε web browser
 
 ## 💭 Suggested use
