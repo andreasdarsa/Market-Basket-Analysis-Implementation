@@ -1,7 +1,7 @@
 import pandas as pd
 from mlxtend.frequent_patterns import apriori, association_rules, fpgrowth
 from mlxtend.preprocessing import TransactionEncoder
-from preprocessing import get_items, create_random_dataset
+from logic.preprocessing import get_items, create_random_dataset
 import os
 
 FILE_PATH = "backend/data/generated_transactions.csv"

@@ -1,11 +1,33 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, render_template
 import os
 import pandas as pd
 from logic.preprocessing import clean_csv
 from logic.apriori_runner import get_rules
-from logic.visualize import create_heatmap, plot_frequent_items, draw_rules_network, scatter_lift_support
 
-routes = Blueprint('routes', __name__)
+
+back_bp = Blueprint('back', __name__)
+
+front_bp = Blueprint('front', __name__, static_folder='../frontend/static', template_folder='../frontend/templates')
+
+@front_bp.route('/')
+def home():
+    return render_template('home.html')
+
+@front_bp.route('/upload')
+def upload_page():
+    return render_template('upload.html')
+
+@front_bp.route('/analysis')
+def analysis_page():
+    return render_template('analysis.html')
+
+@front_bp.route('/preprocess')
+def preprocess_page():
+    return render_template('preprocess.html')
+
+@front_bp.route('/visuals')
+def visualize_page():
+    return render_template('visuals.html')
 
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
@@ -13,9 +35,9 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 current_file = {"path": None, "name": None}
 
 # ----- Route to upload CSV file -----
-@routes.route('/api/upload', methods=['POST'])
+@back_bp.route('/upload', methods=['POST'])
 def upload_file() -> tuple:
-    file =request.files.get('file')
+    file =request.files.get('csvFile')
 
     if not file or not file.filename.endswith('.csv'):
         return jsonify({"error": "Please upload a valid CSV file."}), 400
@@ -31,7 +53,7 @@ def upload_file() -> tuple:
     return jsonify({"message": f"File '{file.filename}' uploaded successfully.", "transaction_count": len(df)}), 200
 
 # ----- Route to get CSV file info -----
-@routes.route('/api/file_info', methods=['GET'])
+@back_bp.route('/file_info', methods=['GET'])
 def file_info() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 400
@@ -43,7 +65,7 @@ def file_info() -> tuple:
     }), 200
     
 # ----- Route to pre-process the uploaded CSV file -----
-@routes.route('/api/preprocess/stats', methods=['POST'])
+@back_bp.route('/preprocess/stats', methods=['POST'])
 def preprocess_stats() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
@@ -51,7 +73,7 @@ def preprocess_stats() -> tuple:
     _, stats = clean_csv(current_file["path"])
     return jsonify(stats), 200
 
-@routes.route('/api/preprocess/preview', methods=['GET'])
+@back_bp.route('/preprocess/preview', methods=['GET'])
 def preprocess_preview() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
@@ -61,7 +83,7 @@ def preprocess_preview() -> tuple:
     return jsonify(preview), 200
 
 # ----- Route to get association rules -----
-@routes.route('/api/analysis/rules', methods=['GET'])
+@back_bp.route('/analysis/rules', methods=['GET'])
 def analysis_rules() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
@@ -84,7 +106,7 @@ def analysis_rules() -> tuple:
 
     return jsonify(rules), 200
 
-@routes.route('/api/analysis/summary', methods=['GET'])
+@back_bp.route('/analysis/summary', methods=['GET'])
 def analysis_summary() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
