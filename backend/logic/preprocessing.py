@@ -57,7 +57,7 @@ def clean_csv(path, min_support=0.005, min_items_per_transaction=2):
 
     # Check if the CSV file has the correct columns
     if list(df.columns) != ["TransactionID", "Items"]:
-        raise ValueError("CSV file must have two columns named 'TransactionID' and 'Items'.")
+        raise ValueError("CSV file must only have two columns named 'TransactionID' and 'Items'.")
     
     # Replace '/' with ',' in the 'Items' column in order to split items correctly
     df['Items'] = df['Items'].str.replace('/', ',', regex=False)

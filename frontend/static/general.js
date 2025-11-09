@@ -8,6 +8,7 @@ document.addEventListener('DOMContentLoaded', function() {
             alert('Market Basket Analyzer\n\nThis application helps you analyze market basket data to find associations between products. It is built using Flask for the backend and Bootstrap for the frontend.\n\nDeveloped by Andreas Darsaklis.');
         });
     }
+    
 
     // Toggle the navbar on small screens
     const navbarToggler = document.querySelector('.navbar-toggler');
