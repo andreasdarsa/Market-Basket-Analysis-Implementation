@@ -65,7 +65,7 @@ def file_info() -> tuple:
     }), 200
     
 # ----- Route to pre-process the uploaded CSV file -----
-@back_bp.route('/preprocess/stats', methods=['POST'])
+@back_bp.route('/preprocess/stats', methods=['GET', 'POST'])
 def preprocess_stats() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
