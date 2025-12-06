@@ -83,14 +83,14 @@ def preprocess_preview() -> tuple:
     return jsonify(preview), 200
 
 # ----- Route to get association rules -----
-@back_bp.route('/analysis/rules', methods=['GET'])
+@back_bp.route('/analysis/rules', methods=['GET', 'POST'])
 def analysis_rules() -> tuple:
     if not current_file["path"]:
         return jsonify({"error": "No file uploaded."}), 404
 
-    min_support = float(request.args.get('min_support', 0.005))
-    min_confidence = float(request.args.get('min_confidence', 0.2))
-    min_lift = float(request.args.get('min_lift', 1.1))
+    min_support = float(request.args.get('minSupport', 0.005))
+    min_confidence = float(request.args.get('minConfidence', 0.2))
+    min_lift = float(request.args.get('minLift', 1.1))
 
     rules_df = get_rules(current_file["path"], min_support, min_confidence, min_lift)
     rules = []
