@@ -104,6 +104,9 @@ def analysis_rules() -> tuple:
             "lift": row['lift']
         })
 
+    #Sort rules by confidence in descending order
+    rules = sorted(rules, key=lambda x: x['confidence'], reverse=True)
+
     return jsonify(rules), 200
 
 @back_bp.route('/analysis/summary', methods=['GET'])

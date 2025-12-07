@@ -12,18 +12,12 @@ function fetchAprioriResults() {
     const minSupport = document.getElementById('minSupport').value;
     const minConfidence = document.getElementById('minConfidence').value;
     const minLift = document.getElementById('minLift').value;
-    const payload = {
-        minSupport: parseFloat(minSupport),
-        minConfidence: parseFloat(minConfidence),
-        minLift: parseFloat(minLift)
-    };
     // Send POST request to the server
-    fetch('/api/rules', {
-        method: 'POST',
+    fetch(`/api/analysis/rules?minSupport=${minSupport}&minConfidence=${minConfidence}&minLift=${minLift}`, {
+        method: 'GET',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(payload)
+        }
     })
     .then(response => response.json())
     .then(data => {

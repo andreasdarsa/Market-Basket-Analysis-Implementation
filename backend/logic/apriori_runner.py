@@ -9,8 +9,8 @@ FILE_PATH = "backend/data/generated_transactions.csv"
 
 def get_items_list(fpath=FILE_PATH) -> list:
     if os.path.exists(path=fpath):
-        with open(fpath, "r", encoding="utf-8") as f:
-            items_list = [line.strip().split(",") for line in f]
+        df = pd.read_csv(fpath)
+        items_list = df['Items'].str.split(",").tolist()
     else:
         items_list = create_random_dataset()
 
