@@ -27,7 +27,10 @@
    ```bash
    python -m venv venv
    source venv/bin/activate   # Linux/Mac
+   
+   Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser #πιθανόν να χρειαστεί και αυτή η εντολή γιατί τα Windows δεν τρέχουν Scripts
    venv\Scripts\activate      # Windows
+   ```
 3. Εγκατέστησε dependencies
    ```bash
    pip install -r requirements.txt
