@@ -1,8 +1,2 @@
 # Uploads folder
 backend/uploads/
-
-# Virtual environment
-mb_venv/
-
-# Python cache files
-backend/logic/__pycache__/
