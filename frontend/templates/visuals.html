@@ -5,31 +5,32 @@
         <title>Market Basket Analyzer - Visualizations</title>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
-        <script src="general.js" async></script>
+        <script src="../static/general.js" async></script>
+        <script src="../static/visuals.js" defer></script>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="home.html">MBA App</a>
+                <a class="navbar-brand" href="{{url_for('front.home')}}">MBA App</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent" aria-controls="navbarContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item" id="toHome">
-                            <a class="nav-link" href="/">Home</a>
+                            <a class="nav-link" href="{{url_for('front.home')}}">Home</a>
                         </li>
                         <li class="nav-item" id="upload-link">
-                            <a class="nav-link" href="/upload">Upload CSV</a>
+                            <a class="nav-link" href="{{url_for('front.upload_page')}}">Upload CSV</a>
                         </li>
                         <li class="nav-item" id="toPreprocess">
-                            <a class="nav-link" href="/preprocess">Preprocess file</a>
+                            <a class="nav-link" href="{{url_for('front.preprocess_page')}}">Preprocess file</a>
                         </li>
                         <li class="nav-item" id="toAnalysis">
-                            <a class="nav-link" href="/analysis">Analysis</a>
+                            <a class="nav-link" href="{{url_for('front.analysis_page')}}">Analysis</a>
                         </li>
                         <li class="nav-item" id="toVisuals">
-                            <a class="nav-link active fw-bold text-primary" aria-current="page" href="/visuals">Visuals</a>
+                            <a class="nav-link active fw-bold text-primary" aria-current="page" href="{{url_for('front.visualize_page')}}">Visuals</a>
                         </li>
                         <li class="nav-item" id="toAbout">
                             <a class="nav-link" href="#">About</a>
@@ -41,21 +42,36 @@
         <div class="container my-4">
             <h1 class="mb-3">Visualizations</h1>
             <p class="lead">Explore your market basket data with interactive charts and graphs.</p>
+            <p>If a graph does not load properly, try refreshing the page</p>
         </div>
         <div class="container my-4" id="graphs-section">
             <h2 class="mb-3">Graphs</h2>
             <div id="graphs-container">
-            <div id="graph-frequent-items" class="mb-4">
-                <!-- Frequent Items Bar Chart will be dynamically inserted here -->
-                <!-- x: itemsets y: frequencies-->
-            </div>
-            <div id="graph-association-rules" class="mb-4">
-                <!-- Association Rules Graph will be dynamically inserted here -->
-            </div>
-            <div id="graph-network" class="mb-4">
-                <!-- Network Graph will be dynamically inserted here -->
-            </div>
-            <!-- Add more graph slots as needed -->
+                <div id="graph-heatmap" class="mb-4">
+                    <h3 id="graph-heatmap-label">Item Co-occurrence Heatmap</h3>
+                    <div id="graph-heatmap-container">
+                        <!-- Heatmap will be dynamically inserted here -->
+                    </div>
+                </div>
+                <div id="graph-frequent-items" class="mb-4">
+                    <h3 id="graph-frequent-items-label">Frequent Items Bar Chart</h3>
+                    <div id="graph-frequent-items-container">
+                        <!-- Frequent Items Bar Chart will be dynamically inserted here -->
+                        <!-- x: itemsets y: frequencies-->
+                    </div>
+                </div>
+                <div id="graph-network" class="mb-4">
+                    <h3 id="graph-network-label">Association Rules Network Graph</h3>
+                    <div id="graph-network-container">
+                        <!-- Network Graph will be dynamically inserted here -->
+                    </div>
+                </div>
+                <div id="graph-scatter" class="mb-4">
+                    <h3 id="graph-scatter-label">Lift vs Support Scatter Plot</h3>
+                    <div id="graph-scatter-container">
+                        <!-- Scatter Plot will be dynamically inserted here -->
+                    </div>
+                </div>
             </div>
         </div>
         

@@ -2,7 +2,8 @@ from flask import Blueprint, jsonify, request, render_template
 import os
 import pandas as pd
 from logic.preprocessing import clean_csv
-from logic.apriori_runner import get_rules
+from logic.apriori_runner import get_rules, get_frequent_itemsets, get_items_list
+from logic.visualize import create_heatmap, plot_frequent_items, draw_rules_network, scatter_lift_support
 
 
 back_bp = Blueprint('back', __name__)
@@ -107,6 +108,16 @@ def analysis_rules() -> tuple:
     #Sort rules by confidence in descending order
     rules = sorted(rules, key=lambda x: x['confidence'], reverse=True)
 
+    # Convert antecedents and consequents from frozenset to string for CSV saving
+    for rule in rules:
+        rule['antecedents'] = '-'.join(rule['antecedents'])
+        rule['consequents'] = '-'.join(rule['consequents'])
+
+    # Save rules to a CSV file
+    rules_file_path = os.path.join(UPLOAD_FOLDER, f"{os.path.splitext(current_file['name'])[0]}_rules.csv")
+    new_rules_df = pd.DataFrame(rules)
+    new_rules_df.to_csv(rules_file_path, index=False)
+
     return jsonify(rules), 200
 
 @back_bp.route('/analysis/summary', methods=['GET'])
@@ -137,3 +148,56 @@ def analysis_summary() -> tuple:
         "average_confidence": avg_confidence,
         "average_lift": avg_lift
     }), 200
+
+@back_bp.route('/visualize/heatmap', methods=['GET'])
+def visualize_heatmap() -> tuple:
+    if not current_file["path"]:
+        return jsonify({"error": "No file uploaded."}), 404
+
+    transactions = get_items_list(current_file["path"])
+
+    encoded_image = create_heatmap(transactions)
+    return jsonify({"image": encoded_image}), 200
+
+@back_bp.route('/visualize/frequent_items', methods=['GET'])
+def visualize_frequent_items() -> tuple:
+    if not current_file["path"]:
+        return jsonify({"error": "No file uploaded."}), 404
+
+    n = int(request.args.get('n', 10))
+    freq_items = get_frequent_itemsets(current_file["path"])
+    encoded_image = plot_frequent_items(freq_items, n)
+    return jsonify({"image": encoded_image}), 200
+
+@back_bp.route('/visualize/rules_network', methods=['GET'])
+def visualize_rules_network() -> tuple:
+    if not current_file["path"]:
+        return jsonify({"error": "No file uploaded."}), 404
+
+    rules_file_path = os.path.join(UPLOAD_FOLDER, f"{os.path.splitext(current_file['name'])[0]}_rules.csv")
+    if not os.path.exists(rules_file_path):
+        return jsonify({"error": "No rules file found. Run analysis first."}), 404
+
+    #rules_to_draw = pd.read_csv(rules_file_path)
+    #antecendents and consqeuents should be converted to lists
+    #if they have multiple items, they are stored as strings separated by '-'
+    rules_to_draw = pd.read_csv(rules_file_path)
+    rules_to_draw['antecedents'] = rules_to_draw['antecedents'].str.split('-')
+    rules_to_draw['consequents'] = rules_to_draw['consequents'].str.split('-')
+    #print(rules_to_draw)
+    encoded_image = draw_rules_network(rules_to_draw)
+    return jsonify({"image": encoded_image}), 200
+
+@back_bp.route('/visualize/scatter_lift_support', methods=['GET'])
+def visualize_scatter_lift_support() -> tuple:
+    if not current_file["path"]:
+        return jsonify({"error": "No file uploaded."}), 404
+
+    rules_file_path = os.path.join(UPLOAD_FOLDER, f"{os.path.splitext(current_file['name'])[0]}_rules.csv")
+    if not os.path.exists(rules_file_path):
+        return jsonify({"error": "No rules file found. Run analysis first."}), 404
+    
+    rules = pd.read_csv(rules_file_path)
+
+    encoded_image = scatter_lift_support(rules)
+    return jsonify({"image": encoded_image}), 200
