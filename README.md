@@ -1,5 +1,7 @@
 # MaBaN - Market Basket Analysis
 
+![alt text](https://github.com/andreasdarsa/MaBaN-Market-Basket-Analysis/blob/main/frontend/static/maban_logo.png?raw=true)
+
 Ένα web εργαλείο για **ανάλυση συναλλαγών** με χρήση του **Apriori** αλγορίθμου και παραγωγή **association rules**.  
 Παρέχει επίσης **οπτικοποιήσεις** (heatmaps, frequent itemsets, networks of rules, scatter plots).
 
