@@ -2,7 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Market Basket Analyzer - Apriori Results</title>
+        <title>MaBan - Market Basket Analysis</title>
+        <link rel="icon" type="image/png" href="../static/maban_logo.png">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
         <link href="styles.css" rel="stylesheet">
         <script src="../static/general.js" async></script>
@@ -12,7 +13,9 @@
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="container-fluid">
-                <a class="navbar-brand" href="{{url_for('front.home')}}}">MBA App</a>
+                <a class="navbar-brand" href="{{url_for('front.home')}}">
+                    <img src="../static/maban_logo.png" alt="MaBaN logo" height="40">
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -32,6 +35,9 @@
                         </li>
                         <li class="nav-item" id="toVisuals">
                             <a class="nav-link" href="{{url_for('front.visualize_page')}}">Visuals</a>
+                        </li>
+                        <li class="nav-item" id="toExplained">
+                            <a class="nav-link" href="{{url_for('front.explain_page')}}">Explain</a>
                         </li>
                         <li class="nav-item" id="toAbout">
                             <a class="nav-link" href="#">About</a>
