@@ -1,4 +1,4 @@
-# Market Basket Analysis Web App
+# MaBaN - Market Basket Analysis
 
 Ένα web εργαλείο για **ανάλυση συναλλαγών** με χρήση του **Apriori** αλγορίθμου και παραγωγή **association rules**.  
 Παρέχει επίσης **οπτικοποιήσεις** (heatmaps, frequent itemsets, networks of rules, scatter plots).
