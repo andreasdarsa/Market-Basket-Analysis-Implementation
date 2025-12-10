@@ -30,10 +30,6 @@ def preprocess_page():
 def visualize_page():
     return render_template('visuals.html')
 
-@front_bp.route('/explain')
-def explain_page():
-    return render_template('explain.html')
-
 UPLOAD_FOLDER = 'uploads'
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
