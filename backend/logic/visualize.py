@@ -59,8 +59,10 @@ def draw_rules_network(rules: pd.DataFrame) -> str:
 
     fig,ax = plt.subplots(figsize=(12,8))
     pos = nx.spring_layout(G=G, k=1)
+    num_nodes = len(G.nodes())
+    node_size = max(1000, 20000 // num_nodes)
     nx.draw(G=G, pos=pos, with_labels=True, node_color='blue', edge_color='black', 
-            node_size=10000, font_size=10, ax=ax)
+            node_size=node_size, font_size=10, ax=ax)
     labels = nx.get_edge_attributes(G=G, name='weight')
     nx.draw_networkx_edge_labels(G, pos, edge_labels={k: f"{v:.2f}" for k, v in labels.items()})
     plt.title("Rules Network")
