@@ -21,12 +21,19 @@
 
 ## 🛠️ Tech Stack
 ![Python](https://img.shields.io/badge/Python-3776AB?logo=python&logoColor=white)
+Λογική εφαρμογής
 ![Pandas](https://img.shields.io/badge/Pandas-150458?logo=pandas&logoColor=white)
+Καθαρισμός/επεξεργασία δεδομένων
 ![Matplotlib](https://img.shields.io/badge/Matplotlib-11557C?logo=matplotlib&logoColor=white)
+Γραφήματα
 ![MLXtend](https://img.shields.io/badge/MLXtend-5DADE2?logo=python&logoColor=white)
+Αλγόριθμος Apriori
 ![Flask](https://img.shields.io/badge/Flask-000000?logo=flask&logoColor=white)
+Web App - Routes - REST API
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+Frontend
 ![Bootstrap](https://img.shields.io/badge/Bootstrap-7952B3?logo=bootstrap&logoColor=white)
+Styles
 
 
 ## 💡 Installation
@@ -53,6 +60,7 @@
    cd backend
    py app.py
 2. Άνοιξε το frontend
+
    Τρέχοντας το backend αυτόματα ανοίγει και το frontend.
 
 ## 💭 Suggested use
